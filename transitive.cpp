@@ -1,7 +1,7 @@
 #include<iostream>
 using namespace std;
-
 int INF=99;
+
 int main()
 {
      int graph[4][4]={
