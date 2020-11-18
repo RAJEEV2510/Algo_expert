@@ -1,61 +1,45 @@
 #include<iostream>
-#include<fstream>
+#include<stdlib.h>
+#include<time.h>
 using namespace std;
-void quicksort(int quick[],int low,int high);
-int Dpartition(int quick[],int low,int high);
+int partion(int arr[],int low,int high)
+{
+    int i=low-1;
+    int pivot=arr[high];
+    for(int j=low;j<=high;j++)
+    {
+        if(arr[j]<pivot)
+        {
+            i++;
+            swap(arr[i],arr[j]);
+        }
+    }
+        i++;
+        swap(arr[i],arr[high]);
+
+    return i;
+}
+void quicksort(int arr[],int low,int high)
+{
+    if(low<high)
+    {
+        int pi=partion(arr,low,high);
+
+        quicksort(arr,low,pi-1);///left
+
+        quicksort(arr,pi+1,high);///right
+    }
+}
 int main()
 {
 
-    cout<<"-------------quick sort program-------------\n";
-    int quick[30];
-     ifstream obj("xyz.txt");
-    int i=0;
-    while(!obj.eof())
-    {
-        obj>>quick[i];
-        i++;
-    }
-    //taking input from users
+    int arr[5];
+    srand(time(0));
+    for(int i=0;i<5;i++)
+        arr[i]=rand();
     int low=0;
-    //low index
-    int high=i-1;//high index
-    //array
-    quicksort(quick,low,high);
-    //output
-      for(int k=low;k<=high;k++)
-    {
-        cout<<quick[k]<<endl;
-    }
-
-}
-
-void quicksort(int quick[],int low,int high)
-{
-
-
-    //partition
-    if(low<high)
-    {
-        int pi=Dpartition(quick,low, high);
-        quicksort(quick,low,pi-1);
-        quicksort(quick,pi+1,high);
-    }
-}
-
-
-int Dpartition(int quick[],int low,int high)
-{
-    int pivot=high;
-    int i=low-1;
-    for(int j=low;j<high;j++)
-    {
-            if(quick[j]<quick[pivot])
-            {
-                i++;
-                swap(quick[i],quick[j]);
-            }
-    }
-    i++;
-    swap(quick[i],quick[pivot]);
-    return i;
+    int high=4;
+    quicksort(arr,low,high);
+    for(int i=low;i<=high;i++)
+    cout<<arr[i]<<endl;
 }
